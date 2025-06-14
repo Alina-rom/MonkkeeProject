@@ -1,7 +1,6 @@
 package pages;
 
-import lombok.Data;
-import org.openqa.selenium.By;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,6 +10,7 @@ import org.testng.Assert;
 
 import java.time.Duration;
 
+@Log4j2
 public class LoginPage extends BasePage{
 
     @FindBy(xpath = "//*[@ng-model='model.login']")
@@ -39,6 +39,7 @@ public class LoginPage extends BasePage{
         usernameInput.sendKeys(username);
         passwordInput.sendKeys(password);
         loginButton.click();
+        log.info("Login on site");
         return new MailListPage(driver);
     }
 
@@ -55,19 +56,23 @@ public class LoginPage extends BasePage{
     }
 
     public LoginPage openPage(String url){
+        log.info("Open Login page Url {}", url);
         driver.get(url);
         return this;
     }
 
     public void checkError(){
+        log.info("Check writing wrong data");
         Assert.assertTrue(errorMessageLoginFailed.isDisplayed());
     }
 
     public void checkErrorField(){
+        log.info("Check don't fill field");
         Assert.assertTrue(errorMessageMandatoryField.isDisplayed());
     }
 
     public void checkMatch(){
         Assert.assertEquals(driver.getCurrentUrl(),MAIL_LIST_PAGE_URL);
+        log.info("Current Url match Mail List Page Url");
     }
 }

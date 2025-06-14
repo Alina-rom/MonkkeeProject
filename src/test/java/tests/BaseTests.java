@@ -31,7 +31,8 @@ public class BaseTests implements IConstans{
     MailPageSteps mailPageSteps;
     SettingSteps settingSteps;
 
-
+    public static String USERNAME = System.getProperty("login","");
+    public static String PASSWORD = System.getProperty("password","");
 
     @BeforeMethod
     public void initTest(){

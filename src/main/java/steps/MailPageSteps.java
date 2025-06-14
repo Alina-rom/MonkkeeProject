@@ -37,18 +37,18 @@ public class MailPageSteps {
     }
 
     @Step("Check change size letters in mail")
-    public MailPageSteps checkChangeSize(){
+    public MailPageSteps checkChangeSize(String size){
         mailPage.createNewMailAndStay();
-        mailPage.changeSize();
-        mailPage.checkMatchData("font-size","8px");
+        mailPage.changeSize(size);
+        mailPage.checkMatchData("font-size", String.format("%spx", size));
         return this;
     }
 
     @Step("Check change color letters in mail")
-    public MailPageSteps checkChangeTextColor(){
+    public MailPageSteps checkChangeTextColor(String color, String expected){
         mailPage.createNewMailAndStay();
-        mailPage.changeTextColor();
-        mailPage.checkMatchData("color","#1abc9c");
+        mailPage.changeTextColor(color);
+        mailPage.checkMatchData("color", expected);
         return this;
     }
 
@@ -57,6 +57,13 @@ public class MailPageSteps {
         mailPage.createNewMailAndStay();
         mailPage.pasteImage(imageUrl);
         mailPage.checkElementEnable(imageUrl);
+        return this;
+    }
+
+    @Step("Create mail and add tag")
+    public MailPageSteps createMailWithTag(String tag){
+        mailPage.createNewMailAndStay();
+        mailPage.addTagInMail(tag);
         return this;
     }
 }

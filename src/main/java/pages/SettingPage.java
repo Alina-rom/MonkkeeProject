@@ -1,9 +1,8 @@
 package pages;
 
-import org.openqa.selenium.Keys;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -13,6 +12,7 @@ import org.testng.Assert;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
+@Log4j2
 public class SettingPage extends BasePage{
 
     @FindBy(xpath = "//*[@name='selectLocale']")
@@ -33,10 +33,7 @@ public class SettingPage extends BasePage{
         Select select = new Select(choiceBox);
         choiceBox.click();
         select.selectByVisibleText(language);
-//        languageBox.click();
-//        Actions actions = new Actions(driver);
-//        actions.sendKeys(Keys.ARROW_DOWN).perform();
-//        actions.sendKeys(Keys.ENTER).perform();
+        log.info("Select language to change it {}", language);
         okButton.click();
     }
 
@@ -46,14 +43,17 @@ public class SettingPage extends BasePage{
         Select select = new Select(choiceBox);
         choiceBox.click();
         select.selectByVisibleText(color);
+        log.info("Select color theme for page {}", color);
         okButton.click();
     }
 
     public void checkChange(){
+        log.info("Check success change");
         Assert.assertTrue(successMessage.isDisplayed());
     }
 
     public SettingPage openPage(String url){
+        log.info("Open Setting page Url {}", url);
         driver.get(url);
         return this;
     }
