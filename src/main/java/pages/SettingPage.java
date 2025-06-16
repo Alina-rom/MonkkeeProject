@@ -39,7 +39,6 @@ public class SettingPage extends BasePage{
 
     public void changeColorStyle(String color){
         tabChangeColor.click();
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         Select select = new Select(choiceBox);
         choiceBox.click();
         select.selectByVisibleText(color);

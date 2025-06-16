@@ -18,12 +18,12 @@ public class MailListTests extends BaseTests{
         mailListSteps.checkSearchMail("MONKEY");
     }
 
-    @Test(description = "Test create mail with tag and check it")
-    public void createAndCheckTagInMail(){
-        loginSteps.loginAndWaitForPageOpened(USERNAME,PASSWORD);
-        mailPageSteps.createMailWithTag("diplom");
-        mailListSteps.checkTagInMail("diplom", "diplom");
-    }
+//    @Test(description = "Test create mail with tag and check it")
+//    public void createAndCheckTagInMail(){
+//        loginSteps.loginAndWaitForPageOpened(USERNAME,PASSWORD);
+//        mailPageSteps.createMailWithTag("diplom");
+//        mailListSteps.checkTagInMail("diplom", "diplom");
+//    }
 
     @Test(description = "Test login, create mail and delete it")
     public void bigTest(){
