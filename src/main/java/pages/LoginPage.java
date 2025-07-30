@@ -11,12 +11,12 @@ import org.testng.Assert;
 import java.time.Duration;
 
 @Log4j2
-public class LoginPage extends BasePage{
+public class LoginPage extends BasePage {
 
-    @FindBy(xpath = "//*[@ng-model='model.login']")
+    @FindBy(id = "login")
     WebElement usernameInput;
 
-    @FindBy(xpath = "//*[@ng-model='model.password']")
+    @FindBy(id = "password")
     WebElement passwordInput;
 
     @FindBy(xpath = "//*[@type='submit']")
@@ -35,7 +35,7 @@ public class LoginPage extends BasePage{
         super(driver);
     }
 
-    public MailListPage login(String username, String password){
+    public MailListPage login(String username, String password) {
         usernameInput.sendKeys(username);
         passwordInput.sendKeys(password);
         loginButton.click();
@@ -55,24 +55,24 @@ public class LoginPage extends BasePage{
         return new MailListPage(driver);
     }
 
-    public LoginPage openPage(String url){
+    public LoginPage openPage(String url) {
         log.info("Open Login page Url {}", url);
         driver.get(url);
         return this;
     }
 
-    public void checkError(){
+    public void checkErrorMessageLoginFailed() {
         log.info("Check writing wrong data");
         Assert.assertTrue(errorMessageLoginFailed.isDisplayed());
     }
 
-    public void checkErrorField(){
+    public void checkErrorMessageMandatoryField() {
         log.info("Check don't fill field");
         Assert.assertTrue(errorMessageMandatoryField.isDisplayed());
     }
 
-    public void checkMatch(){
-        Assert.assertEquals(driver.getCurrentUrl(),MAIL_LIST_PAGE_URL);
+    public void checkMatchPageUrl() {
+        Assert.assertEquals(driver.getCurrentUrl(), MAIL_LIST_PAGE_URL);
         log.info("Current Url match Mail List Page Url");
     }
 }

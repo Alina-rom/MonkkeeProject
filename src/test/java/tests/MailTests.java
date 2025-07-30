@@ -7,31 +7,31 @@ public class MailTests extends BaseTests {
     @Test(description = "Test login on site, create mail and check bold style")
     public void checkBoldButtonTest() {
         loginSteps.loginAndWaitForPageOpened(USERNAME, PASSWORD);
-        mailPageSteps.checkBoldStyle();
+        mailPageSteps.checkBoldStyle("New Mail");
     }
 
     @Test(description = "Test login on site, create mail and check italic style")
     public void checkItalicButtonTest() {
         loginSteps.loginAndWaitForPageOpened(USERNAME, PASSWORD);
-        mailPageSteps.checkItalicStyle();
+        mailPageSteps.checkItalicStyle("New Mail");
     }
 
     @Test(description = "Test login on site, create mail and check underline style")
     public void checkUnderlineButtonTest() {
         loginSteps.loginAndWaitForPageOpened(USERNAME, PASSWORD);
-        mailPageSteps.checkUnderlineStyle();
+        mailPageSteps.checkUnderlineStyle("New Mail");
     }
 
     @Test(description = "Test login on site, create mail and check change size letters")
     public void checkChangeSizeTest() {
         loginSteps.loginAndWaitForPageOpened(USERNAME, PASSWORD);
-        mailPageSteps.checkChangeSize("8");
+        mailPageSteps.checkChangeSize("New Mail", "8");
     }
 
     @Test(description = "Test login on site, create mail and check change color letters")
-    public void checkChangeTextColorTest(){
-        loginSteps.loginAndWaitForPageOpened(USERNAME,PASSWORD);
-        mailPageSteps.checkChangeTextColor("1ABC9C", "rgba(26, 188, 156, 1)");
+    public void checkChangeTextColorTest() {
+        loginSteps.loginAndWaitForPageOpened(USERNAME, PASSWORD);
+        mailPageSteps.checkChangeTextColor("New Mail", "1ABC9C", "rgba(26, 188, 156, 1)");
     }
 
     @Test(description = "Test login on site, create mail and check paste image")

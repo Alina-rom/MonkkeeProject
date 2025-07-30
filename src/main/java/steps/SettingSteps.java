@@ -1,6 +1,6 @@
 package steps;
 
-import constans.IConstans;
+import constants.IConstants;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import pages.SettingPage;
@@ -8,27 +8,27 @@ import pages.SettingPage;
 public class SettingSteps {
     private SettingPage settingPage;
 
-    public SettingSteps(WebDriver driver){
+    public SettingSteps(WebDriver driver) {
         settingPage = new SettingPage(driver);
     }
 
     @Step("Check change language")
-    public SettingSteps tryChangeLanguage(String language){
+    public SettingSteps tryChangeLanguage(String language) {
         settingPage
-                .openPage(IConstans.SETTINGS_PAGE_URL)
-                .waitForLoginPageOpened()
+                .openPage(IConstants.SETTINGS_PAGE_URL)
+                .waitForSettingPageOpened()
                 .changeLanguage(language);
-        settingPage.checkChange();
+        settingPage.checkMessageSuccessfulChangeShown();
         return this;
     }
 
     @Step("Check change color style")
-    public SettingSteps tryChangeColorStyle(String color){
+    public SettingSteps tryChangeColorStyle(String color) {
         settingPage
-                .openPage(IConstans.SETTINGS_PAGE_URL)
-                .waitForLoginPageOpened()
+                .openPage(IConstants.SETTINGS_PAGE_URL)
+                .waitForSettingPageOpened()
                 .changeColorStyle(color);
-        settingPage.checkChange();
+        settingPage.checkMessageSuccessfulChangeShown();
         return this;
     }
 }

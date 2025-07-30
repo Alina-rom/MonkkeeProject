@@ -16,6 +16,5 @@ public class SettingTests extends BaseTests{
     public void changeColorStyleTest(){
         loginSteps.loginAndWaitForPageOpened(USERNAME,PASSWORD);
         settingSteps.tryChangeColorStyle("Dark");
-//        settingSteps.tryChangeColorStyle("Light");
     }
 }

@@ -1,5 +1,6 @@
 package pages;
 
+import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -8,7 +9,7 @@ import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 
 @Log4j2
-public class MailPage extends MailListPage{
+public class MailPage extends MailListPage {
 
     @FindBy(xpath = "//*[@class='entry__editable contenteditable cke_editable cke_editable_inline cke_contents_ltr cke_focus']")
     WebElement inputField;
@@ -58,74 +59,81 @@ public class MailPage extends MailListPage{
     @FindBy(id = "back-to-overview")
     WebElement backOnListPageButton;
 
+    @Getter
+    private String changeLetterSize = "//li[@class='cke_panel_listItem']//a[@title='%s']";
+    @Getter
+    private String colorChange = "//body/div[1][@class='cke_panel_block cke_colorblock']//a[@data-value='%s']";
+    @Getter
+    private String elementOnSite = "//*[contains(@src,'%s')]";
+
     public MailPage(WebDriver driver) {
         super(driver);
     }
 
-    public void createNewMailAndStay(){
+    public void createNewMailAndStay() {
         log.info("Create new mail for work");
         newMailButton.click();
     }
 
-    public void addTagInMail(String tag){
-        inputField.sendKeys("New Mail");
+    public void addTagInMail(String tag, String text) {
+        inputField.sendKeys(text);
         tagInput.sendKeys(tag);
         log.info("Add tag {} to mail", tag);
         tagOkButton.click();
         backOnListPageButton.click();
     }
 
-    public void boldStyle(){
-        log.info("Chose bold style writing");
+    public void boldStyle(String text) {
+        log.info("Choose bold style writing");
         boldButton.click();
-        inputField.sendKeys("New Mail");
+        inputField.sendKeys(text);
     }
 
-    public void italicStyle(){
-        log.info("Chose italic style writing");
+    public void italicStyle(String text) {
+        log.info("Choose italic style writing");
         italicButton.click();
-        inputField.sendKeys("New Mail");
+        inputField.sendKeys(text);
     }
 
-    public void underlineStyle(){
-        log.info("Chose underline style writing");
+    public void underlineStyle(String text) {
+        log.info("Choose underline style writing");
         underlineButton.click();
-        inputField.sendKeys("New Mail");
+        inputField.sendKeys(text);
     }
 
-    public void changeSize(String size) {
+    public void changeSize(String text, String size) {
         moreButton.click();
         sizeButton.click();
         driver.switchTo().frame(iframeElement);
-        driver.findElement(By.xpath(String.format("//li[@class='cke_panel_listItem']//a[@title='%s']", size))).click();
+        driver.findElement(By.xpath(String.format(changeLetterSize, size))).click();
         driver.switchTo().defaultContent();
-        log.info("Change size letters in mail to {}",size);
-        inputField.sendKeys("New Mail");
+        log.info("Change size letters in mail to {}", size);
+        inputField.sendKeys(text);
     }
 
-    public void changeTextColor(String color){
+    public void changeTextColor(String text, String color) {
         textColorButton.click();
         driver.switchTo().frame(iframeElement);
-        driver.findElement(By.xpath(String.format("//body/div[1][@class='cke_panel_block cke_colorblock']//a[@data-value='%s']", color))).click();
+        driver.findElement(By.xpath(String.format(colorChange, color))).click();
         driver.switchTo().defaultContent();
         log.info("Change color letters in mail to {}", color);
-        inputField.sendKeys("New Mail");
+        inputField.sendKeys(text);
     }
 
-    public void pasteImage(String imageUrl){
+    public void pasteImage(String imageUrl) {
         imageButton.click();
         imageInput.sendKeys(imageUrl);
         log.info("Paste image {} in mail", imageUrl);
         okButtonInImageField.click();
     }
 
-    public void checkMatchData(String category, String expected){
+    public void checkMatchData(String category, String expected) {
         log.info("Check match data in category {}", category);
         Assert.assertEquals(textInField.getCssValue(category), expected);
     }
 
-    public void checkElementEnable(String imageUrl){
-        log.info("Check image {} enable in mail",imageUrl);
-        Assert.assertTrue(driver.findElement(By.xpath(String.format("//*[contains(@src,'%s')]",imageUrl))).isEnabled());
+    public void checkElementEnable(String imageUrl) {
+        log.info("Check image {} enable in mail", imageUrl);
+        Assert.assertTrue(driver.findElement(By.xpath(String.format(elementOnSite, imageUrl))).isEnabled());
     }
 }

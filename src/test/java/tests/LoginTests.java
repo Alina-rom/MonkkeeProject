@@ -8,33 +8,33 @@ public class LoginTests extends BaseTests {
     public void loginWithEmptyUsernameTest(){
         loginSteps
                 .loginWithIncorrectData("",PASSWORD)
-                .checkAppearanceErrorMassageField();
+                .checkAppearanceErrorMessageMandatoryField();
     }
 
     @Test(description = "Test login on site with empty password field")
     public void loginWithEmptyPasswordTest(){
         loginSteps
                 .loginWithIncorrectData(USERNAME,"")
-                .checkAppearanceErrorMassageField();
+                .checkAppearanceErrorMessageMandatoryField();
     }
 
     @Test(description = "Test login on site with incorrect username")
     public void loginWithIncorrectUsernameTest(){
         loginSteps.loginWithIncorrectData("fdfdfgdf",PASSWORD);
-        loginSteps.checkAppearanceErrorMassage();
+        loginSteps.checkAppearanceErrorMessageLoginFailed();
     }
 
     @Test(description = "Test login on site with incorrect password")
     public void loginWithIncorrectPasswordTest(){
         loginSteps
                 .loginWithIncorrectData(USERNAME,"rgrgrtgbd")
-                .checkAppearanceErrorMassage();
+                .checkAppearanceErrorMessageLoginFailed();
     }
 
     @Test(description = "Test login on site with correct data")
     public void loginSuccessTest(){
         loginSteps
                 .loginAndWaitForPageOpened(USERNAME,PASSWORD)
-                .checkMatchUrl();
+                .checkMatchMailListUrl();
     }
 }

@@ -3,6 +3,7 @@ package pages;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -13,7 +14,7 @@ import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 @Log4j2
-public class SettingPage extends BasePage{
+public class SettingPage extends BasePage {
 
     @FindBy(xpath = "//*[@name='selectLocale']")
     WebElement choiceBox;
@@ -24,12 +25,11 @@ public class SettingPage extends BasePage{
     @FindBy(xpath = "//*[contains(@class, 'nav-link') and contains(@href, '#/settings/color_scheme')]")
     WebElement tabChangeColor;
 
-
     public SettingPage(WebDriver driver) {
         super(driver);
     }
 
-    public void changeLanguage(String language){
+    public void changeLanguage(String language) {
         Select select = new Select(choiceBox);
         choiceBox.click();
         select.selectByVisibleText(language);
@@ -37,7 +37,7 @@ public class SettingPage extends BasePage{
         okButton.click();
     }
 
-    public void changeColorStyle(String color){
+    public void changeColorStyle(String color) {
         tabChangeColor.click();
         Select select = new Select(choiceBox);
         choiceBox.click();
@@ -46,18 +46,18 @@ public class SettingPage extends BasePage{
         okButton.click();
     }
 
-    public void checkChange(){
+    public void checkMessageSuccessfulChangeShown() {
         log.info("Check success change");
         Assert.assertTrue(successMessage.isDisplayed());
     }
 
-    public SettingPage openPage(String url){
+    public SettingPage openPage(String url) {
         log.info("Open Setting page Url {}", url);
         driver.get(url);
         return this;
     }
 
-    public SettingPage waitForLoginPageOpened() {
+    public SettingPage waitForSettingPageOpened() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.visibilityOf(okButton));
         return this;

@@ -13,47 +13,47 @@ public class MailPageSteps {
     }
 
     @Step("Check bold style in mail")
-    public MailPageSteps checkBoldStyle(){
+    public MailPageSteps checkBoldStyle(String text) {
         mailPage.createNewMailAndStay();
-        mailPage.boldStyle();
-        mailPage.checkMatchData("font-weight","700");
+        mailPage.boldStyle(text);
+        mailPage.checkMatchData("font-weight", "700");
         return this;
     }
 
     @Step("Check italic style in mail")
-    public MailPageSteps checkItalicStyle(){
+    public MailPageSteps checkItalicStyle(String text) {
         mailPage.createNewMailAndStay();
-        mailPage.italicStyle();
-        mailPage.checkMatchData("font-style","italic");
+        mailPage.italicStyle(text);
+        mailPage.checkMatchData("font-style", "italic");
         return this;
     }
 
     @Step("Check underline style in mail")
-    public MailPageSteps checkUnderlineStyle(){
+    public MailPageSteps checkUnderlineStyle(String text) {
         mailPage.createNewMailAndStay();
-        mailPage.underlineStyle();
-        mailPage.checkMatchData("text-decoration-style","solid");
+        mailPage.underlineStyle(text);
+        mailPage.checkMatchData("text-decoration-style", "solid");
         return this;
     }
 
     @Step("Check change size letters in mail")
-    public MailPageSteps checkChangeSize(String size){
+    public MailPageSteps checkChangeSize(String text, String size) {
         mailPage.createNewMailAndStay();
-        mailPage.changeSize(size);
+        mailPage.changeSize(text, size);
         mailPage.checkMatchData("font-size", String.format("%spx", size));
         return this;
     }
 
     @Step("Check change color letters in mail")
-    public MailPageSteps checkChangeTextColor(String color, String expected){
+    public MailPageSteps checkChangeTextColor(String text, String color, String expected) {
         mailPage.createNewMailAndStay();
-        mailPage.changeTextColor(color);
+        mailPage.changeTextColor(text, color);
         mailPage.checkMatchData("color", expected);
         return this;
     }
 
     @Step("Check paste image in mail")
-    public MailPageSteps checkImage(String imageUrl){
+    public MailPageSteps checkImage(String imageUrl) {
         mailPage.createNewMailAndStay();
         mailPage.pasteImage(imageUrl);
         mailPage.checkElementEnable(imageUrl);
@@ -61,9 +61,9 @@ public class MailPageSteps {
     }
 
     @Step("Create mail and add tag")
-    public MailPageSteps createMailWithTag(String tag){
+    public MailPageSteps createMailWithTag(String tag, String text) {
         mailPage.createNewMailAndStay();
-        mailPage.addTagInMail(tag);
+        mailPage.addTagInMail(tag, text);
         return this;
     }
 }
