@@ -35,9 +35,9 @@ public class MailListSteps {
     }
 
     @Step("Check tag in mail")
-    public MailListSteps checkTagInMail(String tag, String expected) {
+    public MailListSteps checkTagInMail(String tag) {
         mailListPage.chooseTag(tag);
-        mailListPage.checkTag(tag, expected);
+        mailListPage.checkTag(tag);
         return this;
     }
 

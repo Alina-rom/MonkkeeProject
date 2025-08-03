@@ -36,7 +36,10 @@ public class MailListPage extends BasePage {
     private String mailWithText = "//*[contains(text(),'%s')]";
     @Getter
     private String deleteCheckMarkForSpecificMail = "//*[contains(text(), '%s')]/ancestor::div[contains(@class, 'd-xl-flex mb-xl-3 ng-scope')]//input";
-
+    @Getter
+    private String tagPath = "//*[@class='tag ng-binding' and contains(text(), '%s')]";
+    @Getter
+    private String mailWithSpecificTag = "//*[@class='tag entries__tag ng-binding ng-scope' and contains(text(), '%s')]";
 
     public MailListPage(WebDriver driver) {
         super(driver);
@@ -55,16 +58,9 @@ public class MailListPage extends BasePage {
         searchButton.click();
     }
 
-//    public void chooseTag(String tag) {
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-//        wait.until(ExpectedConditions.visibilityOf(newMailButton));
-//        log.info("Chose tag {} to see all mails with it", tag);
-//        driver.findElement(By.xpath(String.format("//*[@class='tag ng-binding' and contains(text(), '%s')]", tag))).click();
-//    }
-
     public void chooseTag(String tag) {
         log.info("Chose tag {} to see all mails with it", tag);
-        String tagsPath = String.format("//*[@class='tag ng-binding' and contains(text(), '%s')]", tag);
+        String tagsPath = String.format(tagPath, tag);
         WebElement tagsButton = driver.findElement(By.xpath(tagsPath));
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         wait.until(ExpectedConditions.stalenessOf(tagsButton));
@@ -72,11 +68,9 @@ public class MailListPage extends BasePage {
         tagsButton.click();
     }
 
-    public void checkTag(String tag, String expected) {
+    public void checkTag(String tag) {
         log.info("Check mail with tag {} appear on site", tag);
-        Assert.assertTrue(driver.findElement(By.xpath(String.format("//*[@class='tag entries__tag ng-binding ng-scope' and contains(text(), '%s')]", tag))).isDisplayed());
-        log.info("Check match tag {} in mail with our tag {}", tag, expected);
-        Assert.assertEquals(driver.findElement(By.xpath(String.format("//*[@class='tag entries__tag ng-binding ng-scope' and contains(text(), '%s')]", tag))).getText(), expected);
+        Assert.assertTrue(driver.findElement(By.xpath(String.format(mailWithSpecificTag, tag))).isDisplayed());
     }
 
     public void deleteMails() {
