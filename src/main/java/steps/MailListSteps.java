@@ -2,6 +2,7 @@ package steps;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import pages.MailListPage;
 
 public class MailListSteps {
@@ -30,28 +31,28 @@ public class MailListSteps {
     public MailListSteps checkSearchMail(String text) {
         mailListPage.createNewMail(text);
         mailListPage.searchMail(text);
-        mailListPage.checkElementEnable(text);
+        Assert.assertTrue(mailListPage.checkElementEnable(text));
         return this;
     }
 
     @Step("Check tag in mail")
     public MailListSteps checkTagInMail(String tag) {
         mailListPage.chooseTag(tag);
-        mailListPage.checkTag(tag);
+        Assert.assertTrue(mailListPage.getMailWithSpecificTag(tag));
         return this;
     }
 
     @Step("Create mail and check it")
     public MailListSteps createNewMailAndCheck(String text) {
         mailListPage.createNewMail(text);
-        mailListPage.checkElementEnable(text);
+        Assert.assertTrue(mailListPage.checkElementEnable(text));
         return this;
     }
 
     @Step("Delete specific mail and check")
     public MailListSteps checkDeleteSpecificMail(String text) {
         mailListPage.deleteSpecificMail(text);
-        mailListPage.checkElementNotEnable(text);
+        Assert.assertFalse(mailListPage.checkElementNotEnable(text));
         return this;
     }
 }

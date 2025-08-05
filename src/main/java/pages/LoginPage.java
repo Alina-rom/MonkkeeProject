@@ -6,7 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 
 import java.time.Duration;
 
@@ -61,18 +60,18 @@ public class LoginPage extends BasePage {
         return this;
     }
 
-    public void checkErrorMessageLoginFailed() {
+    public boolean isErrorMessageLoginFailedDisplayed() {
         log.info("Check writing wrong data");
-        Assert.assertTrue(errorMessageLoginFailed.isDisplayed());
+        return errorMessageLoginFailed.isDisplayed();
     }
 
-    public void checkErrorMessageMandatoryField() {
+    public boolean isErrorMessageMandatoryFieldDisplayed() {
         log.info("Check don't fill field");
-        Assert.assertTrue(errorMessageMandatoryField.isDisplayed());
+        return errorMessageMandatoryField.isDisplayed();
     }
 
-    public void checkMatchPageUrl() {
-        Assert.assertEquals(driver.getCurrentUrl(), MAIL_LIST_PAGE_URL);
-        log.info("Current Url match Mail List Page Url");
+    public String getCurrentPageUrl() {
+        log.info("Check current Url match Mail List Page Url?");
+        return driver.getCurrentUrl();
     }
 }

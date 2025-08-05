@@ -7,19 +7,19 @@ public class MailTests extends BaseTests {
     @Test(description = "Test login on site, create mail and check bold style")
     public void checkBoldButtonTest() {
         loginSteps.loginAndWaitForPageOpened(USERNAME, PASSWORD);
-        mailPageSteps.checkBoldStyle("New Mail");
+        mailPageSteps.checkBoldStyle("New Mail", "700");
     }
 
     @Test(description = "Test login on site, create mail and check italic style")
     public void checkItalicButtonTest() {
         loginSteps.loginAndWaitForPageOpened(USERNAME, PASSWORD);
-        mailPageSteps.checkItalicStyle("New Mail");
+        mailPageSteps.checkItalicStyle("New Mail", "italic");
     }
 
     @Test(description = "Test login on site, create mail and check underline style")
     public void checkUnderlineButtonTest() {
         loginSteps.loginAndWaitForPageOpened(USERNAME, PASSWORD);
-        mailPageSteps.checkUnderlineStyle("New Mail");
+        mailPageSteps.checkUnderlineStyle("New Mail", "solid");
     }
 
     @Test(description = "Test login on site, create mail and check change size letters")

@@ -1,6 +1,6 @@
 package pages;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -15,6 +15,7 @@ import java.time.Duration;
 import java.util.List;
 
 @Log4j2
+@Data
 public class MailListPage extends BasePage {
 
     @FindBy(id = "create-entry")
@@ -32,14 +33,11 @@ public class MailListPage extends BasePage {
     @FindBy(xpath = "//*[@title='Search']")
     WebElement searchButton;
 
-    @Getter
     private String mailWithText = "//*[contains(text(),'%s')]";
-    @Getter
     private String deleteCheckMarkForSpecificMail = "//*[contains(text(), '%s')]/ancestor::div[contains(@class, 'd-xl-flex mb-xl-3 ng-scope')]//input";
-    @Getter
     private String tagPath = "//*[@class='tag ng-binding' and contains(text(), '%s')]";
-    @Getter
     private String mailWithSpecificTag = "//*[@class='tag entries__tag ng-binding ng-scope' and contains(text(), '%s')]";
+    private String listElement = "//*[contains(@class, 'd-xl-flex mb-xl-3 ng-scope')]//div[@class=' entries__body']";
 
     public MailListPage(WebDriver driver) {
         super(driver);
@@ -68,9 +66,9 @@ public class MailListPage extends BasePage {
         tagsButton.click();
     }
 
-    public void checkTag(String tag) {
+    public boolean getMailWithSpecificTag(String tag) {
         log.info("Check mail with tag {} appear on site", tag);
-        Assert.assertTrue(driver.findElement(By.xpath(String.format(mailWithSpecificTag, tag))).isDisplayed());
+        return driver.findElement(By.xpath(String.format(mailWithSpecificTag, tag))).isDisplayed();
     }
 
     public void deleteMails() {
@@ -87,18 +85,17 @@ public class MailListPage extends BasePage {
         driver.switchTo().alert().accept();
     }
 
-    public void checkElementEnable(String text) {
+    public boolean checkElementEnable(String text) {
         log.info("Check mail with text {} enable on page", text);
-        Assert.assertTrue(driver.findElement(By.xpath(String.format(mailWithText, text))).isEnabled());
+        return driver.findElement(By.xpath(String.format(mailWithText, text))).isEnabled();
     }
 
-    public void checkElementNotEnable(String text) {
+    public boolean checkElementNotEnable(String text) {
         List<String> elementsTexts = null;
         int attempts = 0;
         while (attempts < 2) {
             try {
-                elementsTexts = driver.findElements(By.xpath(
-                                "//*[contains(@class, 'd-xl-flex mb-xl-3 ng-scope')]//div[@class=' entries__body']"))
+                elementsTexts = driver.findElements(By.xpath(listElement))
                         .stream()
                         .map(WebElement::getText)
                         .toList();
@@ -108,7 +105,6 @@ public class MailListPage extends BasePage {
             }
         }
         log.info("Check mail with text {} delete on site", text);
-        Assert.assertFalse(elementsTexts != null && elementsTexts.contains(text),
-                "Элемент с текстом '" + text + "' не был удален и отображается на странице");
+        return elementsTexts != null && elementsTexts.contains(text);
     }
 }

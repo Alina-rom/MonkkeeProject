@@ -3,9 +3,10 @@ package steps;
 import constants.IConstants;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import pages.LoginPage;
 
-public class LoginSteps {
+public class LoginSteps implements IConstants {
 
     private LoginPage loginPage;
 
@@ -34,19 +35,19 @@ public class LoginSteps {
 
     @Step("Check appearance error massage with incorrect data when login")
     public LoginSteps checkAppearanceErrorMessageLoginFailed() {
-        loginPage.checkErrorMessageLoginFailed();
+        Assert.assertTrue(loginPage.isErrorMessageLoginFailedDisplayed());
         return this;
     }
 
     @Step("Check appearance error massage empty field when login")
     public LoginSteps checkAppearanceErrorMessageMandatoryField() {
-        loginPage.checkErrorMessageMandatoryField();
+        Assert.assertTrue(loginPage.isErrorMessageMandatoryFieldDisplayed());
         return this;
     }
 
     @Step("Check match current url with MailList url")
     public LoginSteps checkMatchMailListUrl() {
-        loginPage.checkMatchPageUrl();
+        Assert.assertEquals(loginPage.getCurrentPageUrl(), MAIL_LIST_PAGE_URL);
         return this;
     }
 }

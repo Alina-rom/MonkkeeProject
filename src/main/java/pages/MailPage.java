@@ -1,5 +1,6 @@
 package pages;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
@@ -9,6 +10,7 @@ import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 
 @Log4j2
+@Data
 public class MailPage extends MailListPage {
 
     @FindBy(xpath = "//*[@class='entry__editable contenteditable cke_editable cke_editable_inline cke_contents_ltr cke_focus']")
@@ -28,9 +30,6 @@ public class MailPage extends MailListPage {
 
     @FindBy(xpath = "//input[@class='cke_dialog_ui_input_text']")
     WebElement imageInput;
-
-    @FindBy(xpath = "//*[contains(text(),'New Mail')]")
-    WebElement textInField;
 
     @FindBy(xpath = "//*[contains(@class, 'cke_dialog_ui_button_ok')]")
     WebElement okButtonInImageField;
@@ -59,12 +58,10 @@ public class MailPage extends MailListPage {
     @FindBy(id = "back-to-overview")
     WebElement backOnListPageButton;
 
-    @Getter
     private String changeLetterSize = "//li[@class='cke_panel_listItem']//a[@title='%s']";
-    @Getter
     private String colorChange = "//body/div[1][@class='cke_panel_block cke_colorblock']//a[@data-value='%s']";
-    @Getter
     private String elementOnSite = "//*[contains(@src,'%s')]";
+    private String textInField = "//*[contains(text(),'%s')]";
 
     public MailPage(WebDriver driver) {
         super(driver);
@@ -127,13 +124,13 @@ public class MailPage extends MailListPage {
         okButtonInImageField.click();
     }
 
-    public void checkMatchData(String category, String expected) {
+    public String checkMatchData(String category, String text) {
         log.info("Check match data in category {}", category);
-        Assert.assertEquals(textInField.getCssValue(category), expected);
+        return driver.findElement(By.xpath(String.format(textInField, text))).getCssValue(category);
     }
 
-    public void checkElementEnable(String imageUrl) {
+    public boolean checkImageEnable(String imageUrl) {
         log.info("Check image {} enable in mail", imageUrl);
-        Assert.assertTrue(driver.findElement(By.xpath(String.format(elementOnSite, imageUrl))).isEnabled());
+        return driver.findElement(By.xpath(String.format(elementOnSite, imageUrl))).isEnabled();
     }
 }

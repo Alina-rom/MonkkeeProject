@@ -46,9 +46,9 @@ public class SettingPage extends BasePage {
         okButton.click();
     }
 
-    public void checkMessageSuccessfulChangeShown() {
+    public boolean checkMessageSuccessfulChangeShown() {
         log.info("Check success change");
-        Assert.assertTrue(successMessage.isDisplayed());
+        return successMessage.isDisplayed();
     }
 
     public SettingPage openPage(String url) {

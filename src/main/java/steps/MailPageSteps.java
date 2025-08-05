@@ -2,6 +2,7 @@ package steps;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import pages.MailPage;
 
 public class MailPageSteps {
@@ -13,26 +14,26 @@ public class MailPageSteps {
     }
 
     @Step("Check bold style in mail")
-    public MailPageSteps checkBoldStyle(String text) {
+    public MailPageSteps checkBoldStyle(String text, String expected) {
         mailPage.createNewMailAndStay();
         mailPage.boldStyle(text);
-        mailPage.checkMatchData("font-weight", "700");
+        Assert.assertEquals(mailPage.checkMatchData("font-weight", text), expected);
         return this;
     }
 
     @Step("Check italic style in mail")
-    public MailPageSteps checkItalicStyle(String text) {
+    public MailPageSteps checkItalicStyle(String text, String expected) {
         mailPage.createNewMailAndStay();
         mailPage.italicStyle(text);
-        mailPage.checkMatchData("font-style", "italic");
+        Assert.assertEquals(mailPage.checkMatchData("font-style", text), expected);
         return this;
     }
 
     @Step("Check underline style in mail")
-    public MailPageSteps checkUnderlineStyle(String text) {
+    public MailPageSteps checkUnderlineStyle(String text, String expected) {
         mailPage.createNewMailAndStay();
         mailPage.underlineStyle(text);
-        mailPage.checkMatchData("text-decoration-style", "solid");
+        Assert.assertEquals(mailPage.checkMatchData("text-decoration-style", text), expected);
         return this;
     }
 
@@ -40,7 +41,7 @@ public class MailPageSteps {
     public MailPageSteps checkChangeSize(String text, String size) {
         mailPage.createNewMailAndStay();
         mailPage.changeSize(text, size);
-        mailPage.checkMatchData("font-size", String.format("%spx", size));
+        Assert.assertEquals(mailPage.checkMatchData("font-size", text), String.format("%spx", size));
         return this;
     }
 
@@ -48,7 +49,7 @@ public class MailPageSteps {
     public MailPageSteps checkChangeTextColor(String text, String color, String expected) {
         mailPage.createNewMailAndStay();
         mailPage.changeTextColor(text, color);
-        mailPage.checkMatchData("color", expected);
+        Assert.assertEquals(mailPage.checkMatchData("color", text), expected);
         return this;
     }
 
@@ -56,7 +57,7 @@ public class MailPageSteps {
     public MailPageSteps checkImage(String imageUrl) {
         mailPage.createNewMailAndStay();
         mailPage.pasteImage(imageUrl);
-        mailPage.checkElementEnable(imageUrl);
+        Assert.assertTrue(mailPage.checkImageEnable(imageUrl));
         return this;
     }
 

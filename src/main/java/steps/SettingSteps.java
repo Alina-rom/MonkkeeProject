@@ -3,6 +3,7 @@ package steps;
 import constants.IConstants;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import pages.SettingPage;
 
 public class SettingSteps {
@@ -18,7 +19,7 @@ public class SettingSteps {
                 .openPage(IConstants.SETTINGS_PAGE_URL)
                 .waitForSettingPageOpened()
                 .changeLanguage(language);
-        settingPage.checkMessageSuccessfulChangeShown();
+        Assert.assertTrue(settingPage.checkMessageSuccessfulChangeShown());
         return this;
     }
 
@@ -28,7 +29,7 @@ public class SettingSteps {
                 .openPage(IConstants.SETTINGS_PAGE_URL)
                 .waitForSettingPageOpened()
                 .changeColorStyle(color);
-        settingPage.checkMessageSuccessfulChangeShown();
+        Assert.assertTrue(settingPage.checkMessageSuccessfulChangeShown());
         return this;
     }
 }
