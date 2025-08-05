@@ -26,7 +26,7 @@ public class MailListTests extends BaseTests {
     }
 
     @Test(description = "Test login, create mail and delete it")
-    public void bigTest() {
+    public void createAndDeleteSpecificMail() {
         loginSteps
                 .loginAndWaitForPageOpened(USERNAME, PASSWORD)
                 .checkMatchMailListUrl();

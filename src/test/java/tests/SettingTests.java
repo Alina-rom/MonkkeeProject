@@ -8,13 +8,13 @@ public class SettingTests extends BaseTests{
     public void changeLanguageTest(){
         loginSteps.loginAndWaitForPageOpened(USERNAME,PASSWORD);
         settingSteps
-                .tryChangeLanguage("Deutsch")
-                .tryChangeLanguage("English");
+                .changeLanguageAndCheckIt("Deutsch")
+                .changeLanguageAndCheckIt("English");
     }
 
     @Test(description = "Test login on site and check change color style", retryAnalyzer = Retry.class)
     public void changeColorStyleTest(){
         loginSteps.loginAndWaitForPageOpened(USERNAME,PASSWORD);
-        settingSteps.tryChangeColorStyle("Dark");
+        settingSteps.changeColorStyleAndCheckIt("Dark");
     }
 }

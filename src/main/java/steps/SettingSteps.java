@@ -14,7 +14,7 @@ public class SettingSteps {
     }
 
     @Step("Check change language")
-    public SettingSteps tryChangeLanguage(String language) {
+    public SettingSteps changeLanguageAndCheckIt(String language) {
         settingPage
                 .openPage(IConstants.SETTINGS_PAGE_URL)
                 .waitForSettingPageOpened()
@@ -24,7 +24,7 @@ public class SettingSteps {
     }
 
     @Step("Check change color style")
-    public SettingSteps tryChangeColorStyle(String color) {
+    public SettingSteps changeColorStyleAndCheckIt(String color) {
         settingPage
                 .openPage(IConstants.SETTINGS_PAGE_URL)
                 .waitForSettingPageOpened()
